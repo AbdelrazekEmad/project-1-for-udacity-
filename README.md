@@ -11,10 +11,15 @@ This is a project from Udacity to pass from JavaScript &amp; The DOM section, to
 2. **Methods used in the project:**
   1. getElementById()
   2. querySelctorAll()
-  3. getAttribute()
-  4. appendChild()
-  5. getBoundingClientRect()
-  6. addEventListener()
+  3. createDocumentFragment()
+  4. forEach()
+  5. createElement() 
+  6. getAttribute()
+  7. appendChild()
+  8. getBoundingClientRect()
+  9. addEventListener()
+  10.preventDefault()
+  11.scrollintoview()
 3. **Properties used in the project:**
   1. .innerHTML
   2. classList
