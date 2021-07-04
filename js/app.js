@@ -4,18 +4,19 @@ const getUl = document.getElementById("navbar__list");
 
 // Start building the nav
 
-const myFragment = document.createDocumentFragment(); // create a fragment to append li on it
+const myFragment = document.createDocumentFragment(); // create a fragment to append li on it (for Performance)
+
 allSections.forEach((section) => {
   // create a new LI and add it to variable
   const newLi = document.createElement("li");
   // get link name and id to insert into innerhtml
   const linkName = section.getAttribute("data-nav");
   const linkId = section.getAttribute("id");
-  newLi.innerHTML = `<a class = "menu__link" href=#${linkId} > ${linkName}</a> `;
+  newLi.innerHTML = `<a class = "menu__link" id=${linkId} href=#${linkId} > ${linkName}</a> `;
   // add new li with class and id into ul
   myFragment.appendChild(newLi);
 
-  // when click scroll to section smoothly (for Performance )
+  // when click scroll to section smoothly
   newLi.addEventListener("click", function scrollToSeciton(eve) {
     eve.preventDefault(); // to delete outo scroll
     section.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -27,7 +28,7 @@ getUl.appendChild(myFragment);
 
 // End building the nav
 
-// creatting functon help to grt top position of veiwport for every element and return boolean value
+// creatting functon help to get top position of veiwport for every element and return boolean value
 function ifSectionInVewport(section) {
   const positon = section.getBoundingClientRect();
   return positon.top >= 0;
@@ -35,12 +36,19 @@ function ifSectionInVewport(section) {
 
 // creatting fuction to check if the class is already exists in section that in viewport or not and remove it from any section else
 function sectionActiveState() {
+  const allLinks = document.querySelectorAll("li")
   allSections.forEach((section) => {
     if (ifSectionInVewport(section)) {
-      // check that class not exists if true
+      for (let link of allLinks) {
+        link.classList.remove("active-link")
+        if (link.textContent === section.getAttribute("data-nav")){
+          link.classList.add("active-link")
+        }
+      }
       if (!section.classList.contains("your-active-class")) {
         section.classList.add("your-active-class"); // add the class
       }
+
     } else {
       // if not remove the class
       section.classList.remove("your-active-class");
@@ -50,3 +58,5 @@ function sectionActiveState() {
 
 //add scrool event to toggle class
 document.addEventListener("scroll", sectionActiveState);
+
+// fucnction to toggle active class to links
