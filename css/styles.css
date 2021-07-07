@@ -92,7 +92,7 @@ section {
 
 .active-link {
   background: #333;
-  color: #fff;
+  color: #fff !important; 
 }
 
 /* Header Styles */

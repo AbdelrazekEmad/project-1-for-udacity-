@@ -12,7 +12,7 @@ allSections.forEach((section) => {
   // get link name and id to insert into innerhtml
   const linkName = section.getAttribute("data-nav");
   const linkId = section.getAttribute("id");
-  newLi.innerHTML = `<a class = "menu__link" id=${linkId} href=#${linkId} > ${linkName}</a> `;
+  newLi.innerHTML = `<a class = "menu__link" id=${linkId} href=#${linkId} >${linkName}</a> `;
   // add new li with class and id into ul
   myFragment.appendChild(newLi);
 
@@ -31,24 +31,24 @@ getUl.appendChild(myFragment);
 // creatting functon help to get top position of veiwport for every element and return boolean value
 function ifSectionInVewport(section) {
   const positon = section.getBoundingClientRect();
-  return positon.top >= 0;
+  return positon.top >= 0 && positon.top <300;
 }
 
 // creatting fuction to check if the class is already exists in section that in viewport or not and remove it from any section else
 function sectionActiveState() {
-  const allLinks = document.querySelectorAll("li")
+  const allLinks = document.querySelectorAll("a") //create array of <a> elemets
   allSections.forEach((section) => {
     if (ifSectionInVewport(section)) {
       for (let link of allLinks) {
-        link.classList.remove("active-link")
-        if (link.textContent === section.getAttribute("data-nav")){
-          link.classList.add("active-link")
+        link.classList.remove("active-link") // remove form all links 
+        if (link.textContent === section.getAttribute("data-nav")){ // if the text in link = datanav attribute 
+          link.classList.add("active-link") // add the class
         }
-      }
-      if (!section.classList.contains("your-active-class")) {
+      
+      if (!section.classList.contains("your-active-class")) { // if  the sction contain the class 
         section.classList.add("your-active-class"); // add the class
       }
-
+    }
     } else {
       // if not remove the class
       section.classList.remove("your-active-class");
@@ -58,5 +58,3 @@ function sectionActiveState() {
 
 //add scrool event to toggle class
 document.addEventListener("scroll", sectionActiveState);
-
-// fucnction to toggle active class to links
